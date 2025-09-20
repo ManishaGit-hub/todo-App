@@ -10,6 +10,7 @@ This app helps users manage their daily tasks by allowing them to add, complete,
 
 Live Demo
 ---------
+> click here to view  **https://manishagit-hub.github.io/todo-App/**
 
 Features (Functionalities Implemented)
 --------------------------------------
