@@ -1,0 +1,214 @@
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:turquoise;
+    display:flex;
+    justify-content: center;
+    padding-top: 40px;
+   
+}
+.container{
+    background-color:darksalmon;
+    padding:30px 40px;
+    border-radius: 12px;
+    width:380px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);  
+}
+
+h1{
+    text-align: center;
+    color:#333;
+    position: relative;
+    top:-20px;
+}
+
+.input-section{
+    display:flex;
+    gap:10px;
+}
+.input-section input{
+    flex:1;
+    padding:10px 12px;
+    box-sizing: border-box;
+}
+
+.input-section input::placeholder{
+    color:#888;
+    opacity: 1;
+}
+
+.input-section input,
+.input-section select,
+.input-section button{
+    color:black;
+    border: 1px solid #ddd;
+    outline: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    height: 50px;
+    width: 80px;
+}
+
+.input-section select{
+    width:67px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.input-section button{
+    background-color: rgb(11, 167, 11);
+    border: none;
+    color:white;
+}
+.input-section button:hover{
+    background-color: #0b8b11;
+    cursor: pointer;
+    color:white;
+    transition: 0.3s;
+}
+
+#taskList{
+    list-style: none;
+    padding:0;
+    margin-top: 30px;
+    max-height: 250px;
+    overflow-y: auto;
+    scrollbar-width:thin;
+}
+
+#taskList::-webkit-scrollbar{
+    width:6px;
+}
+
+#taskList::-webkit-scrollbar-thumb{
+    background: #bbb;
+    border-radius: 10px;
+}
+#taskList::-webkit-scrollbar-thumb:hover{
+    background: #888;
+}
+
+#taskList li{
+    margin-bottom: 10px;
+    padding:10px;
+    border-radius: 8px;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap:10px;
+    overflow-wrap: break-word;
+}
+
+#taskList li span{
+    flex:1;
+    word-break: break-word;
+    white-space: pre-wrap;
+    }
+
+#taskList li.completed span{
+    
+    text-decoration: line-through;
+    color:grey;
+}
+
+.task-buttons i{
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.task-buttons .fa-check{
+    color: green;
+}
+
+.task-buttons .fa-trash{
+    color:red;
+}
+
+li.low span{color:bisque}
+li.medium span{color:orange;}
+li.high span{color:red;}
+
+button.active-filter{
+    background-color: #3498db !important;
+    color:white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+#darkModeBtn{
+    font-size: 2rem;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 50%;
+    background-color:tomato;
+    cursor: pointer;
+    position:absolute;
+    top:40px;
+    right:40px;
+    
+}
+
+#darkModeBtn:hover{
+    background-color:rgb(245, 80, 51);
+    transform: scale(1.1);
+}
+
+button{
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border:none;
+    padding: 6px 12px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#clearAll{
+    background:#e74c3c;
+    color:white;
+}
+
+#clearAll:hover{
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+#clearCompleted{
+    background: #f39c12;
+    color:white;
+}
+#clearCompleted:hover{
+    background: #d68910;
+    transform: scale(1.05);
+}
+
+body.dark-mode{
+    background-color: #121212;
+    color:#ffffff;
+    gap:8px;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode button,
+body.dark-mode li{
+    background-color: #1e1e1e;
+    color:#ffffff;
+    border:1px solid #333;
+}
+
+body.dark-mode .completed span{
+    color:#888;
+}
+
+#showAll,#showPending,#showCompleted{
+    background-color: #ecf0f1;
+    border-radius:20px ;
+    padding:6px 14px;
+    margin:4px;
+    font-size:0.85rem;
+    color:black;
+}
+#showAll:hover,#showPending:hover,#showCompleted:hover{
+    background: #dcdde1;
+}
+
