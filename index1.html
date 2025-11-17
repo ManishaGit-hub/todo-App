@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version 1 of My TO-DO App</title>
+    <link rel="stylesheet" href="./css/task1.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <h1>Welcome to my TO-DO App !</h1>
+    </header>
+    
+    <section class="container my-4 p-4 border rounded shadow">
+        <label for="task" class="form-label">Enter a task</label><br>
+        <input type="text" id="task" class="form-control mb-1" name="task" placeholder="..." autofocus><br>
+        <label for="priority" class="form-label">Priority</label><br>
+        <select name="priority" id="priority" class="form-select mb-1">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+        </select><br>
+        <label for="time" class="form-label">Due date<span style="color:red;">*</span></label><br>
+        <input type="date" id="time" class="form-control mb-1" required><br>
+        <button type="button" id="addBtn" class="btn btn-success">Add</button>
+    </section>
+
+    <section class="container my-4 p-4 border rounded shadow">
+        <ul id="taskList"></ul>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="btn-group">
+                    <button type="button" id="all" class="btn btn-outline-primary">All</button>
+                    <button type="button" id="pending" class="btn btn-outline-warning">Pending</button>
+                    <button type="button" id="completed" class="btn btn-outline-success">Completed</button>
+                </div>
+            </div>
+            
+            <div class="col text-center">
+                <p id="taskCount">0 Tasks , 0 Completed</p>
+            </div>
+        
+            <div class="col text-end">
+                <button type="button" id="clearAll" class="btn btn-danger">Clear All</button>
+                <button type="button" id="clearCompleted" class="btn btn-secondary">Clear Completed</button>
+            </div>
+        </div>
+        
+    </section>
+    <button id="darkMode">🌙</button>
+    <script src="./js/task1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

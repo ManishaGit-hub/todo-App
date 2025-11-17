@@ -1,0 +1,12 @@
+body{
+    background-color: #f8f9fa;
+    
+}
+
+.completedTask { 
+    opacity:0.6;
+}
+.completedTask .card-title,.completedTask p{
+    text-decoration: line-through;
+    color:grey;
+}
