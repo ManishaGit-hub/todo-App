@@ -4,6 +4,10 @@ const dueDate=document.getElementById("time")
 const addBtn=document.getElementById("addBtn")
 const listItems=document.getElementById("taskList")
 const darkMode=document.getElementById("darkMode")
+const allBtn = document.getElementById("all")
+const pendingBtn = document.getElementById("pending")
+const completedBtn = document.getElementById("completed")
+let currentFilter = "all"
 
 addBtn.addEventListener('click',addTask)
 
@@ -68,10 +72,46 @@ function addTask(){
             completeBtn.classList.remove("btn-secondary")
             completeBtn.classList.add("btn-success")
         }
+
+        //refreshes current filter automatically
+        filterTask(currentFilter);
     })
 
     deleteBtn.addEventListener('click',()=>{
         card.remove();
+        //refreshes current filter automatically
+        filterTask(currentFilter);
     })
 
 }
+
+function filterTask(type){
+    const allTasks = listItems.querySelectorAll(".card")
+
+    allTasks.forEach(card =>{
+        const isCompleted = card.classList.contains("completedTask");
+
+        if(type === "all"){
+            card.style.display = "block";
+        }
+        else if(type === "pending"){
+            card.style.display = isCompleted ? "none" : "block";
+        }
+        else if(type === "completed"){
+            card.style.display = isCompleted ? "block" : "none"
+        }
+    })
+}
+
+allBtn.addEventListener('click',()=>{
+    currentFilter="all"
+    filterTask("all")})
+pendingBtn.addEventListener('click',()=>{
+    currentFilter="pending"
+    filterTask("pending")
+})
+completedBtn.addEventListener('click',()=>{
+    currentFilter="completed"
+    filterTask("completed")
+})
+
