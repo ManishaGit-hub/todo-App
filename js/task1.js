@@ -132,13 +132,16 @@ function filterTask(type){
 
 allBtn.addEventListener('click',()=>{
     currentFilter="all"
+    sessionStorage.setItem("filter",currentFilter)
     filterTask("all")})
 pendingBtn.addEventListener('click',()=>{
     currentFilter="pending"
+    sessionStorage.setItem("filter",currentFilter)
     filterTask("pending")
 })
 completedBtn.addEventListener('click',()=>{
     currentFilter="completed"
+    sessionStorage.setItem("filter",currentFilter)
     filterTask("completed")
 })
 
@@ -175,6 +178,8 @@ window.addEventListener("DOMContentLoaded",()=>{
     //  returns null and if we parse this it returns error and the app crashes coz json.parse expects valid json string
     tasksArr=stored;
     stored.forEach(t=>renderTask(t))
+    currentFilter = sessionStorage.getItem("filter")||"all" //here "all" is used as fallback UI because first time when you open page , no filter is selected in the session so it will be null if we dont give "all"
+    filterTask(currentFilter)
     updateTaskCount();
 })
 
