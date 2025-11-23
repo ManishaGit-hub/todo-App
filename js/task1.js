@@ -56,9 +56,10 @@ function renderTask(taskObj){
     cardBody.className = "card-body"
 
     const leftDiv = document.createElement("div")
-    leftDiv.innerHTML=`<h5 class="card-title mb-1"><strong>Title:</strong>${taskObj.name}</h5>
-    <p class="card-text mb-0"><strong>Priority:</strong>${taskObj.priority}</p>
-    <p class="card-text mb-0"><strong>Due:</strong>${taskObj.date}</p>`;
+    leftDiv.innerHTML=`<p class="mb-1 d-flex align-items-center"><strong>Task:</strong><span class="task-title">${taskObj.name}</span>
+    <button class="btn btn-link p-0 ms-5 viewBtn">👁</button></p>
+    <p class="mb-1"><strong>Priority:</strong>${taskObj.priority}</p>
+    <p class="mb-1"><strong>Due:</strong>${taskObj.date}</p>`;
 
     const rightDiv = document.createElement("div")
     
@@ -70,7 +71,27 @@ function renderTask(taskObj){
     deleteBtn.className = "btn btn-danger btn-sm me-2"
     deleteBtn.innerText = "Delete"
 
+    const editBtn=document.createElement("button")
+    editBtn.className = "btn btn-warning btn-sm me-2"
+    editBtn.innerText = "Edit";
+
+    editBtn.addEventListener("click",()=>{
+        const newTitle = prompt("Edit Task:",taskObj.name);
+        if(newTitle === null || newTitle.trim() === "") return;
+
+        taskObj.name=newTitle.trim();
+        leftDiv.querySelector(".task-title").innerText = taskObj.name;
+        localStorage.setItem("tasks",JSON.stringify(tasksArr));
+    })
+
+    const viewBtn = leftDiv.querySelector(".viewBtn")
+    viewBtn.addEventListener("click",()=>{
+        alert(`Task Details:\n\n${taskObj.name}`);
+    })
+
+    rightDiv.classList.add("action-row");
     rightDiv.appendChild(completeBtn)
+    rightDiv.appendChild(editBtn)
     rightDiv.appendChild(deleteBtn)
     cardBody.appendChild(leftDiv)
     cardBody.appendChild(rightDiv)

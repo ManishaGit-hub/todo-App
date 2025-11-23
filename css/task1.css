@@ -46,3 +46,16 @@ body{
 #taskList .card{
     height:160px;
 }
+
+.task-title{
+    flex:1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.action-row{
+    display:flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
