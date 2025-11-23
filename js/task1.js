@@ -56,7 +56,7 @@ function renderTask(taskObj){
     cardBody.className = "card-body"
 
     const leftDiv = document.createElement("div")
-    leftDiv.innerHTML=`<h5 class="card-title mb-1">${taskObj.name}</h5>
+    leftDiv.innerHTML=`<h5 class="card-title mb-1"><strong>Title:</strong>${taskObj.name}</h5>
     <p class="card-text mb-0"><strong>Priority:</strong>${taskObj.priority}</p>
     <p class="card-text mb-0"><strong>Due:</strong>${taskObj.date}</p>`;
 
@@ -114,7 +114,7 @@ function addTask(){
     //show confirm every time before saving
     if(!confirm("Save the task?")){
         input.focus()
-        return;
+        return; //exists this function
     }
 
     //to save this created task in localstroage

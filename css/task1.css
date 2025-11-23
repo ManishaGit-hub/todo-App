@@ -31,3 +31,18 @@ body{
 .dark-mode header.bg-primary{
     background-color: #1f1f1f !important;
 }
+
+#taskList{
+    display:grid; 
+    grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); 
+    gap:1rem;
+    max-height:380px;
+    overflow-y: auto;
+    padding: 0;
+    margin:0;
+    list-style: none;
+}
+
+#taskList .card{
+    height:160px;
+}
