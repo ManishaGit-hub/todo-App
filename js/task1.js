@@ -26,6 +26,27 @@ clearCompleted.addEventListener('click',()=>{
     }
 })
 
+//enter key navigation
+input.addEventListener('keydown',(e) =>{
+    if(e.key === 'Enter'){
+        e.preventDefault();
+        priorityInput.focus();
+    }
+})
+
+priorityInput.addEventListener('keydown',(e)=>{
+    if(e.key === 'Enter'){
+        e.preventDefault();
+        dueDate.focus();
+        dueDate.showPicker?.();
+    }
+})
+
+dueDate.addEventListener('change',()=>{
+    dueDate.blur();
+    addBtn.focus();
+})
+
 function renderTask(taskObj){
     const card = document.createElement("div")
     card.className="card my-2";
@@ -87,6 +108,12 @@ function addTask(){
     if(task === '' || date === '' || priority === ''){
         alert("Please enter all the details!")
         input.focus();
+        return;
+    }
+
+    //show confirm every time before saving
+    if(!confirm("Save the task?")){
+        input.focus()
         return;
     }
 
@@ -178,7 +205,8 @@ window.addEventListener("DOMContentLoaded",()=>{
     //  returns null and if we parse this it returns error and the app crashes coz json.parse expects valid json string
     tasksArr=stored;
     stored.forEach(t=>renderTask(t))
-    currentFilter = sessionStorage.getItem("filter")||"all" //here "all" is used as fallback UI because first time when you open page , no filter is selected in the session so it will be null if we dont give "all"
+    currentFilter = sessionStorage.getItem("filter")||"all" //here "all" is used as fallback UI because first time 
+    // when you open page , no filter is selected in the session so it will be null if we dont give "all"
     filterTask(currentFilter)
     updateTaskCount();
 })
