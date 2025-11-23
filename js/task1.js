@@ -11,6 +11,7 @@ const taskCount = document.getElementById("taskCount")
 const clearAllBtn = document.getElementById("clearAll")
 const clearCompleted = document.getElementById("clearCompleted")
 let currentFilter = "all"
+let tasksArr=[]; //to store in localStorage
 
 addBtn.addEventListener('click',addTask)
 clearAllBtn.addEventListener('click',()=>{
@@ -25,6 +26,59 @@ clearCompleted.addEventListener('click',()=>{
     }
 })
 
+function renderTask(taskObj){
+    const card = document.createElement("div")
+    card.className="card my-2";
+    if(taskObj.completed)card.classList.add("completedTask")
+
+    const cardBody=document.createElement("div")
+    cardBody.className = "card-body"
+
+    const leftDiv = document.createElement("div")
+    leftDiv.innerHTML=`<h5 class="card-title mb-1">${taskObj.name}</h5>
+    <p class="card-text mb-0"><strong>Priority:</strong>${taskObj.priority}</p>
+    <p class="card-text mb-0"><strong>Due:</strong>${taskObj.date}</p>`;
+
+    const rightDiv = document.createElement("div")
+    
+    const completeBtn = document.createElement("button")
+    completeBtn.className = taskObj.completed? "btn btn-secondary btn-sm me-2":"btn btn-success btn-sm me-2"
+    completeBtn.innerText = taskObj.completed? "Undo":"Complete"
+
+    const deleteBtn = document.createElement("button")
+    deleteBtn.className = "btn btn-danger btn-sm me-2"
+    deleteBtn.innerText = "Delete"
+
+    rightDiv.appendChild(completeBtn)
+    rightDiv.appendChild(deleteBtn)
+    cardBody.appendChild(leftDiv)
+    cardBody.appendChild(rightDiv)
+    card.appendChild(cardBody)
+    listItems.appendChild(card)
+
+    //complete button
+    completeBtn.addEventListener("click",()=>{
+        card.classList.toggle("completedTask")
+        taskObj.completed = card.classList.contains("completedTask")
+
+        completeBtn.innerText = taskObj.completed? "Undo":"Complete";
+        completeBtn.classList.toggle("btn-success")
+        completeBtn.classList.toggle("btn-secondary")
+
+        localStorage.setItem("tasks",JSON.stringify(tasksArr))
+        updateTaskCount();
+        filterTask(currentFilter)
+    })
+
+    deleteBtn.addEventListener("click",()=>{
+        card.remove()
+        tasksArr = tasksArr.filter(t => t!==taskObj)
+        localStorage.setItem("tasks",JSON.stringify(tasksArr))
+        updateTaskCount()
+        filterTask(currentFilter);
+    })
+}
+
 function addTask(){
     const task=input.value.trim();
     const priority = priorityInput.value;
@@ -36,35 +90,16 @@ function addTask(){
         return;
     }
 
-    const card=document.createElement("div");
-    card.className="card my-2"
-
-    const cardBody=document.createElement("div")
-    cardBody.className="card-body"
-
-    //the card body has 2 parts left section & right section
-    const leftDiv = document.createElement("div")
-    leftDiv.innerHTML = `<h5 class="card-title mb-1">${task}</h5>
-    <p class="card-text mb-0"><strong>Priority:</strong>${priority}</p>
-    <p class="card-text mb-0"><strong>Due:</strong>${date}</p>`
-
-    const rightDiv = document.createElement("div")
-
-    const completeBtn = document.createElement("button")
-    completeBtn.className = "btn btn-success btn-sm me-2"
-    completeBtn.innerText = "Complete"
-
-    const deleteBtn = document.createElement("button")
-    deleteBtn.className = "btn btn-danger btn-sm me-2" 
-    deleteBtn.innerText = "Delete" 
-
-    rightDiv.appendChild(completeBtn)
-    rightDiv.appendChild(deleteBtn)
-
-    cardBody.appendChild(rightDiv)
-    cardBody.appendChild(leftDiv)
-    card.appendChild(cardBody);
-    listItems.appendChild(card);
+    //to save this created task in localstroage
+    const taskObj = {
+        name:task,
+        priority:priority,
+        date:date,
+        completed:false
+    };
+    tasksArr.push(taskObj);
+    localStorage.setItem("tasks",JSON.stringify(tasksArr));
+    renderTask(taskObj)
 
     input.value=""
     priorityInput.value="high"
@@ -73,35 +108,6 @@ function addTask(){
 
     updateTaskCount(); //update count when any task is marked complete
 
-    //adding functionality to complete/delete button
-
-    completeBtn.addEventListener('click',()=>{
-        
-
-        card.classList.toggle("completedTask")
-        if(card.classList.contains("completedTask")){
-            completeBtn.innerText = "Undo"
-            completeBtn.classList.remove("btn-success")
-            completeBtn.classList.add("btn-secondary")
-        }else{
-            completeBtn.innerText = "Complete"
-            completeBtn.classList.remove("btn-secondary")
-            completeBtn.classList.add("btn-success")
-        }
-
-        //refreshes current filter automatically
-        filterTask(currentFilter);
-        updateTaskCount();
-    })
-
-    deleteBtn.addEventListener('click',()=>{
-        card.remove();
-        //refreshes current filter automatically
-        filterTask(currentFilter);
-        updateTaskCount(); //update count after marking delete to any task
-    })
-
-    updateTaskCount();
 }
 
 
@@ -150,20 +156,27 @@ function updateTaskCount(){
 }
 
 function clearAll(){
-    const cleartasks=listItems.querySelectorAll(".card")
-    cleartasks.forEach(card=>{
-        card.remove()
-    })
+    listItems.innerHTML = "";
+    tasksArr = [];
+    localStorage.removeItem("tasks");
     updateTaskCount();
 }
 
 function clearCompletedTasks(){
-    const doneTask = listItems.querySelectorAll(".completedTask")
-    doneTask.forEach(card=>{
-        card.remove()
-    })
+    tasksArr = tasksArr.filter(task => !task.completed) //removed from memory
+    localStorage.setItem("tasks",JSON.stringify(tasksArr)) //removed from localstorage
+    document.querySelectorAll(".completedTask").forEach(card => card.remove())
     updateTaskCount()
 }
+
+//load tasks on page refresh
+window.addEventListener("DOMContentLoaded",()=>{
+    const stored=JSON.parse(localStorage.getItem("tasks"))||[]; //if we dont give [] then when there are no tasks it
+    //  returns null and if we parse this it returns error and the app crashes coz json.parse expects valid json string
+    tasksArr=stored;
+    stored.forEach(t=>renderTask(t))
+    updateTaskCount();
+})
 
 //darkMode -> clicking on moon will toggle dark-mode class on body..CSS changes will apply automatically for background,cards,input,text
 //and the button icon changes dynamically to indicate current mode
