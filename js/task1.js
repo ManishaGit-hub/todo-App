@@ -56,7 +56,8 @@ function renderTask(taskObj){
     cardBody.className = "card-body"
 
     const leftDiv = document.createElement("div")
-    leftDiv.innerHTML=`<p class="mb-1 d-flex align-items-center"><strong>Task:</strong><span class="task-title">${taskObj.name}</span>
+    leftDiv.innerHTML=`<p class="mb-1 d-flex align-items-center"><strong>Task:</strong><span class="task-title">
+    ${taskObj.name}</span>
     <button class="btn btn-link p-0 ms-5 viewBtn">👁</button></p>
     <p class="mb-1"><strong>Priority:</strong>${taskObj.priority}</p>
     <p class="mb-1"><strong>Due:</strong>${taskObj.date}</p>`;

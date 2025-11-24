@@ -28,22 +28,24 @@
 
     <section class="container my-4 p-4 border rounded shadow">
         <ul id="taskList"></ul>
-        <div class="row mt-3">
-            <div class="col">
-                <div class="btn-group">
+        <div class="row mt-3 mb-3 align-items-center gy-2">
+            <div class="col-12 col-md-4 d-flex justify-content-start">
+                <div class="btn-group filters-row" role="group" aria-label="filters">
                     <button type="button" id="all" class="btn btn-outline-primary">All</button>
                     <button type="button" id="pending" class="btn btn-outline-warning">Pending</button>
                     <button type="button" id="completed" class="btn btn-outline-success">Completed</button>
                 </div>
             </div>
             
-            <div class="col text-center">
-                <p id="taskCount">0 Tasks , 0 Completed</p>
+            <div class="col-12 col-md-4 text-center">
+                <p id="taskCount" class="mb-0">0 Tasks , 0 Completed</p>
             </div>
         
-            <div class="col text-end">
+            <div class="col-12 col-md-4 d-flex justify-content-end">
+                <div class="clear-actions d-flex gap-2">
                 <button type="button" id="clearAll" class="btn btn-danger">Clear All</button>
                 <button type="button" id="clearCompleted" class="btn btn-secondary">Clear Completed</button>
+                </div>
             </div>
         </div>
         
