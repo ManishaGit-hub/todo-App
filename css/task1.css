@@ -59,3 +59,23 @@ body{
     justify-content: space-between;
     margin-top: 10px;
 }
+
+/*Highlight active filter */
+.filters-row .btn.active,.filters-row .btn.active-filter{
+    background-color: #0d6efd;
+    color:#fff;
+    border-color:#0d6efd;
+}
+
+/*card height responsive fix*/
+@media (min-width:768px){
+    #taskList .card{
+        height:160px; /*fixed height only for medium+ screens*/
+    }
+}
+
+@media (max-width:767.98px){
+    #taskList .card{
+        height:auto; 
+    }
+}
