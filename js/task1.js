@@ -10,6 +10,7 @@ const completedBtn = document.getElementById("completed")
 const taskCount = document.getElementById("taskCount")
 const clearAllBtn = document.getElementById("clearAll")
 const clearCompleted = document.getElementById("clearCompleted")
+const filters = [allBtn,pendingBtn,completedBtn]
 let currentFilter = "all"
 let tasksArr=[]; //to store in localStorage
 
@@ -58,7 +59,7 @@ function renderTask(taskObj){
     const leftDiv = document.createElement("div")
     leftDiv.innerHTML=`<p class="mb-1 d-flex align-items-center"><strong>Task:</strong><span class="task-title">
     ${taskObj.name}</span>
-    <button class="btn btn-link p-0 ms-5 viewBtn">👁</button></p>
+    <button class="btn btn-link p-0 viewBtn">👁</button></p>
     <p class="mb-1"><strong>Priority:</strong>${taskObj.priority}</p>
     <p class="mb-1"><strong>Due:</strong>${taskObj.date}</p>`;
 
@@ -87,7 +88,13 @@ function renderTask(taskObj){
 
     const viewBtn = leftDiv.querySelector(".viewBtn")
     viewBtn.addEventListener("click",()=>{
-        alert(`Task Details:\n\n${taskObj.name}`);
+        document.getElementById("modalTaskTitle").textContent = taskObj.name;
+        document.getElementById("modalTaskPriority").textContent = taskObj.priority;
+        document.getElementById("modalTaskDate").textContent = taskObj.date;
+        document.getElementById("modalTaskCompleted").textContent = taskObj.completed ? "Yes" : "Not yet";
+
+        const taskModal = new bootstrap.Modal(document.getElementById("taskModal"));
+        taskModal.show();
     })
 
     rightDiv.classList.add("action-row");

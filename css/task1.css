@@ -49,9 +49,14 @@ body{
 
 .task-title{
     flex:1;
-    white-space: nowrap;
+    white-space:nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#modalTaskTitle{
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .action-row{

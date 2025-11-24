@@ -51,6 +51,27 @@
         
     </section>
     <button id="darkMode">🌙</button>
+    
+    <!--Task Details modal instead of alert() popup (view icon) we use bootstrap modal-->
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Task Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Task:</strong><span id="modalTaskTitle"></span></p>
+                    <p><strong>Priority:</strong><span id="modalTaskPriority"></span></p>
+                    <p><strong>Due Date:</strong><span id="modalTaskDate"></span></p>
+                    <p><strong>Completed:</strong><span id="modalTaskCompleted"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="./js/task1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
