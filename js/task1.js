@@ -237,6 +237,13 @@ window.addEventListener("DOMContentLoaded",()=>{
     currentFilter = sessionStorage.getItem("filter")||"all" //here "all" is used as fallback UI because first time 
     // when you open page , no filter is selected in the session so it will be null if we dont give "all"
     filterTask(currentFilter)
+    const savedTheme = localStorage.getItem("darkMode")
+    if(savedTheme === "true"){
+        document.body.classList.add("dark-mode");
+        darkMode.innerText = "☀️";
+    }else{
+        darkMode.innerText = "🌙";
+    }
     updateTaskCount();
 })
 
@@ -245,4 +252,6 @@ window.addEventListener("DOMContentLoaded",()=>{
 darkMode.addEventListener('click',()=>{
     document.body.classList.toggle('dark-mode')
     darkMode.innerText = document.body.classList.contains('dark-mode')?"☀️":"🌙"
+    //save to localstorage
+    localStorage.setItem("darkMode",document.body.classList.contains('dark-mode'))
 })
