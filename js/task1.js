@@ -189,17 +189,48 @@ function filterTask(type){
 allBtn.addEventListener('click',()=>{
     currentFilter="all"
     sessionStorage.setItem("filter",currentFilter)
-    filterTask("all")})
+    filterTask("all")
+    highlightFilter(allBtn);
+})
+
 pendingBtn.addEventListener('click',()=>{
     currentFilter="pending"
     sessionStorage.setItem("filter",currentFilter)
     filterTask("pending")
+    highlightFilter(pendingBtn)
 })
 completedBtn.addEventListener('click',()=>{
     currentFilter="completed"
     sessionStorage.setItem("filter",currentFilter)
     filterTask("completed")
+    highlightFilter(completedBtn)
 })
+
+function highlightFilter(selectedBtn){
+    //map your button IDs to bootstrap color keywords
+    const colorMap = {
+        all:"primary",
+        pending:"warning",
+        completed:"success"
+    };
+    //remove highlight from all buttons ( we are reseting all buttons to normal appearance)
+    filters.forEach(btn =>{
+        btn.classList.remove("active-filter");
+        btn.classList.remove("btn-primary","btn-warning","btn-success")
+        const outlineClass = "btn-outline-"+colorMap[btn.id]
+        btn.classList.add(outlineClass);
+    })
+
+    //add highlight to the selected button
+    selectedBtn.classList.add("active-filter");
+    const selectedOutline = "btn-outline-"+colorMap[selectedBtn.id];
+    selectedBtn.classList.remove(selectedOutline);
+    const selectedFilled = "btn-" + colorMap[selectedBtn.id];
+    selectedBtn.classList.add(selectedFilled);
+
+    filters.forEach(btn => btn.setAttribute("aria-pressed","false"));
+    selectedBtn.setAttribute("aria-pressed","true")
+}
 
 //update task count and completed count
 function updateTaskCount(){
@@ -237,6 +268,10 @@ window.addEventListener("DOMContentLoaded",()=>{
     currentFilter = sessionStorage.getItem("filter")||"all" //here "all" is used as fallback UI because first time 
     // when you open page , no filter is selected in the session so it will be null if we dont give "all"
     filterTask(currentFilter)
+    if(currentFilter === "all") highlightFilter(allBtn)
+    if(currentFilter === "pending") highlightFilter(pendingBtn)
+    if(currentFilter === "completed") highlightFilter(completedBtn)
+        
     const savedTheme = localStorage.getItem("darkMode")
     if(savedTheme === "true"){
         document.body.classList.add("dark-mode");
